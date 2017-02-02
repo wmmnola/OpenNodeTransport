@@ -2,6 +2,6 @@
 
 An open source Transportation game based on node connections.
 
-# # Technical Deitals
+## Technical Deitals
 
-This is written in javascript, with the p5.js libray 
+This is written in javascript, with the p5.js libray

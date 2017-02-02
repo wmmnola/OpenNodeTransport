@@ -4,10 +4,13 @@ var Station = function(x, y) {
   this.r = 30;
   this.connections = [];
   this.color = color(0, 0, 0);
-
+  this.selected = false;
   this.show = function() {
-    fill(this.color)
-    ellipse(this.x, this.y, this.r, this.r)
+    if (this.selected) this.color = color(204, 204, 0);
+    else this.color = color(0, 0, 0);
+
+    fill(this.color);
+    ellipse(this.x, this.y, this.r, this.r);
 
   }
   this.turnRed = function() {

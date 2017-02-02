@@ -23,6 +23,7 @@ function setup() {
 }
 
 function draw() {
+  noStroke();
   background(255);
   textSize(32);
   fill(0, 0, 113);
@@ -43,16 +44,19 @@ function mousePressed() {
       if (!selected) {
         selected = true;
         selectedStation = stations[i];
+        selectedStation.selected = true;
         console.log(selectedStation);
         break;
       } else if (selected && stations[i] != selectedStation) {
         if (money >= 100) {
           selected = false;
+          selectedStation.selected = false;
           var c = new Connection(selectedStation, stations[i]);
           connections.push(c);
           selectedStation.connections.push(c);
           stations[i].connections.push(c);
           money -= 100;
+          console.log(selectedStation);
           break;
         } else {
           console.log("Not enough money");
