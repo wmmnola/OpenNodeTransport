@@ -9,14 +9,12 @@ var money;
 function setup() {
   frameRate(30);
   money = 1000;
-  var station = new Station(100, 100);
-  stations.push(station)
   createCanvas(windowWidth, windowHeight);
 
   for (var i = 0; i < MAX_STATIONS; i++) {
     var x = random(windowWidth);
     var y = random(50, windowHeight);
-    var station = new Station(x, y);
+    var station = new Station(x, y, i);
     stations.push(station)
   }
   //c = new Connection(s1, s2);
@@ -31,6 +29,7 @@ function draw() {
 
   for (var i = 0; i < stations.length; i++) {
     stations[i].show();
+    stations[i].update();
   }
   for (var i = 0; i < connections.length; i++) {
     connections[i].show();
