@@ -47,17 +47,18 @@ function mousePressed() {
         console.log(selectedStation);
         break;
       } else if (selected && stations[i] != selectedStation) {
-        if (money >= 100) {
+        var c = new Connection(selectedStation, stations[i]);
+        if (money >= c.cost) {
           selected = false;
           selectedStation.selected = false;
-          var c = new Connection(selectedStation, stations[i]);
           connections.push(c);
           selectedStation.connections.push(c);
           stations[i].connections.push(c);
-          money -= 100;
-          console.log(selectedStation);
+          money -= c.cost;
           break;
         } else {
+          selected = false;
+          selectedStation.selected = false;
           console.log("Not enough money");
           alert("Not enough money");
         }

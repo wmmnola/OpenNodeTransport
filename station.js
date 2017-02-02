@@ -12,7 +12,7 @@ var Station = function(x, y, id) {
 
     if (this.selected) this.color = color(204, 204, 0);
     else this.color = color(0, 0, 0);
-    text(this.id, this.x - 16, this.y - (this.r + 5));
+    //text(this.id, this.x - 16, this.y - (this.r + 5));
     fill(this.color);
     ellipse(this.x, this.y, this.r, this.r);
 
