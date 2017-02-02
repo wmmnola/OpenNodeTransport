@@ -3,17 +3,17 @@ var Commuter = function(start, end) {
   this.endNode = end;
   this.currentNode = this.startNode;
   this.dead = false;
+  this.distanceTraveled = 1;
   this.update = function() {
-    //  console.log("Current Node: " + this.currentNode.id + " startNode: " +
-    //  this.startNode.id);
     if (!this.dead) {
-      //console.log("im not dead");
       if (this.currentNode == this.endNode) {
         this.dead = true;
-        console.log("I made it!");
+        money += floor(5 / this.distanceTraveled);
       } else if (this.currentNode.connections.length >= 1) {
         var rand = round(random(this.currentNode.connections.length - 1));
         var randConnection = this.currentNode.connections[rand];
+        this.distanceTraveled += 1;
+
         //Sconsole.log(this.currentNode.connections);
         //console.log(rand);
         var index = this.currentNode.population.indexOf(this);
@@ -24,8 +24,6 @@ var Commuter = function(start, end) {
         } else {
           this.currentNode = randConnection.station2;
         }
-        //console.log("I moved from " + oldNode.id + " to " + this.currentNode
-        //.id);
         this.currentNode.population.push(this);
       }
     }
