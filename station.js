@@ -1,15 +1,15 @@
 var Station = function(x, y, id) {
   this.x = x;
   this.y = y;
-  this.r = 30;
   this.id = id;
   this.connections = [];
   this.color = color(0, 0, 0);
   this.selected = false;
   this.population = [];
   this.populationCap = round(random(1, 5));
+  this.r = this.populationCap * 5;
   this.show = function() {
-
+    if (this.populationCap >= this.r) this.r = this.populationCap;
     if (this.selected) this.color = color(204, 204, 0);
     else this.color = color(0, 0, 0);
     //text(this.id, this.x - 16, this.y - (this.r + 5));
@@ -18,6 +18,7 @@ var Station = function(x, y, id) {
 
   }
   this.update = function() {
+
     if (this.population.length <= this.populationCap) {
       var index = round(random(stations.length - 1))
       var person = new Commuter(this, stations[index]);

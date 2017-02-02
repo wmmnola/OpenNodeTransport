@@ -9,6 +9,7 @@ var Commuter = function(start, end) {
       if (this.currentNode == this.endNode) {
         this.dead = true;
         money += floor(5 / this.distanceTraveled);
+        this.currentNode.populationCap += 1;
       } else if (this.currentNode.connections.length >= 1) {
         var rand = round(random(this.currentNode.connections.length - 1));
         var randConnection = this.currentNode.connections[rand];

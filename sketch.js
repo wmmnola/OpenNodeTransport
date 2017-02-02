@@ -1,4 +1,5 @@
 var stations = [];
+var bigStations = [];
 var connections = [];
 var MAX_STATIONS = 20;
 var grid = [];
