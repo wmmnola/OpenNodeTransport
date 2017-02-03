@@ -10,13 +10,13 @@ var Station = function(x, y, id) {
   this.deathRate = 0;
   this.progressToPerson = 0;
   this.reproductionThreshold = 0;
-  this.populationCap = round(random(1, 5));
+  this.populationCap = round(random(2, 10));
   this.r = this.populationCap * 5;
   var index = round(random(stations.length - 1))
   var person = new Commuter(this, stations[index]);
   this.population.push(person);
   this.show = function() {
-    if (this.population.length >= this.r) this.r = this.population.length;
+    this.r = this.population.length + 30;
     if (this.selected) this.color = color(204, 204, 0);
     else if (this.growRate > 0) this.color = color(0, 153, 0);
     else if (this.growRate < 0) this.color = color(204, 0, 0);
@@ -27,14 +27,15 @@ var Station = function(x, y, id) {
 
   }
   this.update = function() {
-    this.reproductionThreshold = this.population.length * 2;
+    this.reproductionThreshold = this.population.length * this.population.length +
+      1;
     if (this.population.length < this.populationCap) {
-      this.growRate += .1;
+      this.growRate += 1;
 
     }
     if (this.population.length > this.populationCap) {
       //console.log(this.population.length + " population against " + this.populationCap);
-      this.growRate -= .5;
+      this.growRate -= 1;
     }
 
     this.progressToPerson += floor(this.growRate);
@@ -42,12 +43,12 @@ var Station = function(x, y, id) {
     if (this.progressToPerson >= this.reproductionThreshold) {
       var person = generatePerson(this);
       this.population.push(person)
-      this.growRate -= .05;
       this.progressToPerson = 0;
     }
-    if (this.progressToPerson <= -5) {
+    if (this.progressToPerson <= (-1 * this.reproductionThreshold)) {
       this.population.splice(random(this.population.length - 1));
       this.progressToPerson = 0;
+      console.log("Somone died");
     }
     for (var i = 0; i < this.population.length; i++) {
       if (this.population[i].dead) this.population.splice[i];
