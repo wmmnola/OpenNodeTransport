@@ -29,3 +29,5 @@ Infastructure of a destination node is increased everytime a commuter reaches th
 * Implement a more elegent growth algorithim. Perhaps [Feignenbaum](https://en.wikipedia.org/wiki/Feigenbaum_constants)
 
 * Implement some way to express traffic on a node.
+
+* Implement a better pathfinding AI.

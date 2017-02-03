@@ -9,6 +9,7 @@ var Station = function(x, y, id) {
   this.growRate = 0;
   this.deathRate = 0;
   this.progressToPerson = 0;
+  this.reproductionThreshold = 0;
   this.populationCap = round(random(1, 5));
   this.r = this.populationCap * 5;
   var index = round(random(stations.length - 1))
@@ -26,22 +27,25 @@ var Station = function(x, y, id) {
 
   }
   this.update = function() {
-
-    if (this.population.length <= this.populationCap) {
+    this.reproductionThreshold = this.population.length * 2;
+    if (this.population.length < this.populationCap) {
       this.growRate += .1;
+
     }
-    if (this.population.length >= this.populationCap) {
+    if (this.population.length > this.populationCap) {
+      //console.log(this.population.length + " population against " + this.populationCap);
       this.growRate -= .5;
     }
-    this.progressToPerson += this.growRate;
 
-    if (this.progressToPerson >= 10) {
+    this.progressToPerson += floor(this.growRate);
+
+    if (this.progressToPerson >= this.reproductionThreshold) {
       var person = generatePerson(this);
       this.population.push(person)
       this.growRate -= .05;
       this.progressToPerson = 0;
     }
-    if (this.progressToPerson <= -10) {
+    if (this.progressToPerson <= -5) {
       this.population.splice(random(this.population.length - 1));
       this.progressToPerson = 0;
     }
