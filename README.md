@@ -1,6 +1,6 @@
 # Open Node Transport
 
-An open source Transportation game based on node connections. Game hosted (here)[https://wmmnola.github.io/OpenNodeTransport/]
+An open source Transportation game based on node connections. Game hosted [here](https://wmmnola.github.io/OpenNodeTransport/)
 
 ## Technical Deitals
 
@@ -26,6 +26,6 @@ Infastructure of a destination node is increased everytime a commuter reaches th
 
 ## Improvements to make
 
-* Implement a more elegent growth algorithim. Perhaps (Feignenbaum)[https://en.wikipedia.org/wiki/Feigenbaum_constants]
+* Implement a more elegent growth algorithim. Perhaps [Feignenbaum](https://en.wikipedia.org/wiki/Feigenbaum_constants)
 
-* Implement some way to express traffic on a node. 
+* Implement some way to express traffic on a node.
