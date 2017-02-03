@@ -34,9 +34,9 @@ var Station = function(x, y, id) {
       this.growRate -= .5;
     }
     this.progressToPerson += this.growRate;
+
     if (this.progressToPerson >= 10) {
-      var index = round(random(stations.length - 1))
-      var person = new Commuter(this, stations[index]);
+      var person = generatePerson(this);
       this.population.push(person)
       this.growRate -= .05;
       this.progressToPerson = 0;
@@ -54,5 +54,16 @@ var Station = function(x, y, id) {
     fill(255, 0, 0);
     ellipse(this.x, this.y, this.r, this.r);
 
+  }
+}
+
+function generatePerson(startNode) {
+  var index = round(random(stations.length - 1))
+
+  if (stations[index] == startNode) {
+    return generatePerson(startNode);
+  } else {
+    var r = new Commuter(startNode, stations[index]);
+    return r;
   }
 }
