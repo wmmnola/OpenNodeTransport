@@ -6,9 +6,13 @@ var Commuter = function(start, end) {
   this.distanceTraveled = 1;
   this.update = function() {
     if (!this.dead) {
+      if (!isANode(this.endNode)) {
+        var rand = random(stations.length - 1);
+        this.endNode = stations[rand];
+      }
       if (this.currentNode == this.endNode) {
         this.dead = true;
-        money += floor(50 / this.distanceTraveled);
+        money += floor(20 / this.distanceTraveled);
         this.currentNode.populationCap += 1;
       } else if (this.currentNode.connections.length >= 1) {
         var rand = round(random(this.currentNode.connections.length - 1));
@@ -29,4 +33,11 @@ var Commuter = function(start, end) {
       }
     }
   }
+}
+
+function isANode(Node) {
+  for (var i = 0; i < stations.length; i++) {
+    if (stations[i] == Node) return true;
+  }
+  return false;
 }

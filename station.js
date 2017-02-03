@@ -51,7 +51,7 @@ var Station = function(x, y, id) {
       console.log("Somone died");
     }
     for (var i = 0; i < this.population.length; i++) {
-      if (this.population[i].dead) this.population.splice[i];
+      //if (this.population[i].dead) this.population.splice[i];
       this.population[i].update();
     }
   }

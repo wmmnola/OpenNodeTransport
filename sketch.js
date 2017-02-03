@@ -31,11 +31,46 @@ function draw() {
   for (var i = 0; i < stations.length; i++) {
     stations[i].show();
     stations[i].update();
+    for (var j = 0; j < stations.length; j++) {
+      var d = dist(stations[i].x, stations[i].y, stations[j].x, stations[j].y);
+      if (d <= stations[i].r / 2 + stations[j].r / 2 && stations[i] != stations[
+          j]) {
+        console.log("the firs circle has radius " + stations[i].r +
+          " the second has radius " + stations[j].r +
+          " and they are distance " + d + "apart");
+        if (stations[j].populationCap > stations[i].populationCap) {
+          absorbStation(stations[i], stations[j]);
+        } else {
+          absorbStation(stations[j], stations[i]);
+        }
+        break;
+      }
+    }
   }
   for (var i = 0; i < connections.length; i++) {
     connections[i].show();
   }
 }
+
+function absorbStation(absorbed, absorbing) {
+
+  for (var x = 0; x < absorbed.population.length; x++) {
+    absorbing.population.push(absorbed.population[x]);
+    absorbed.population[x].currentNode = absorbing;
+  }
+  for (var x = 0; x < absorbed.connections.length; x++) {
+    if (absorbed.connections[x].station1 == absorbed) {
+      absorbed.connections[x].station1 = absorbing;
+    } else {
+      absorbed.connections[x].station2 = absorbing;
+    }
+    absorbing.connections.push(absorbed.connections[x]);
+  }
+  var index = stations.indexOf(absorbed);
+  stations.splice(index, 1);
+  return;
+}
+
 
 function mousePressed() {
   console.log(selected);
