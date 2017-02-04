@@ -11,7 +11,7 @@ This is written in javascript, with the p5.js libray
 The game revovles around nodes and connections which you build between those nodes.
 Each node begins with a random size. In the node there are commuters, whom have a specific destination node.
 You are in the role of a builder, who must construct connections between the nodes.
-The cost of construction is directly proportional to the (Euclidian Distance)[https://en.wikipedia.org/wiki/Euclidean_distance] between those two nodes
+The cost of construction is directly proportional to the [Euclidian Distance](https://en.wikipedia.org/wiki/Euclidean_distance) between those two nodes
 Once the nodes are constructed, the commuters navigate them randomly, until their destination node is reached.
 
 Everytime a commuter reaches their destination node, you get money. The amount of which depends on the number of
@@ -23,6 +23,9 @@ which is indicated by the color of the
 node(Red is a negative growthRate, green is a postive one.)
 The growth rate is usually positive so long as the node's infastructure can support more.
 Infastructure of a destination node is increased everytime a commuter reaches that node.
+
+If two nodes grow to the point of overlap, the node with the larger infastructure will absorb the smaller node.
+This means that the population, and connections in the smaller node will be inherited by the larger one.
 
 ## Improvements to make
 
