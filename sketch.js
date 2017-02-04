@@ -27,7 +27,9 @@ function draw() {
   textSize(32);
   fill(0, 0, 113);
   text("Money: " + money, 0, 32);
-
+  for (var i = 0; i < connections.length; i++) {
+    connections[i].show();
+  }
   for (var i = 0; i < stations.length; i++) {
     stations[i].show();
     stations[i].update();
@@ -47,9 +49,7 @@ function draw() {
       }
     }
   }
-  for (var i = 0; i < connections.length; i++) {
-    connections[i].show();
-  }
+
 }
 
 function absorbStation(absorbed, absorbing) {
