@@ -27,15 +27,30 @@ var Station = function(x, y, id) {
 
   }
   this.update = function() {
+    for (var i = 0; i < connections.length; i++) {
+      for (var j = 0; j < connections.length; j++) {
+        if (connections[i] != connections[j]) {
+          if (connections[i].station1 == connections[j].station1 &&
+            connections[i].station2 == connections[j].station2) {
+            connections.splice(j, 1);
+            console.log("stationed purged");
+          } else if (connections[i].station1 == connections[j].station2 &&
+            connections[i].station2 == connections[j].station1) {
+            connections.splice(j, 1);
+            console.log("stationed purged");
+          }
+        }
+      }
+    }
     this.reproductionThreshold = this.population.length * this.population.length +
       1;
     if (this.population.length < this.populationCap) {
-      this.growRate += 1;
+      this.growRate += .1;
 
     }
     if (this.population.length > this.populationCap) {
       //console.log(this.population.length + " population against " + this.populationCap);
-      this.growRate -= 1;
+      this.growRate -= .1;
     }
 
     this.progressToPerson += floor(this.growRate);
@@ -44,11 +59,12 @@ var Station = function(x, y, id) {
       var person = generatePerson(this);
       this.population.push(person)
       this.progressToPerson = 0;
+      this.growRate -= .5;
     }
     if (this.progressToPerson <= (-1 * this.reproductionThreshold)) {
       this.population.splice(random(this.population.length - 1));
       this.progressToPerson = 0;
-      console.log("Somone died");
+      this.growRate += .5;
     }
     for (var i = 0; i < this.population.length; i++) {
       //if (this.population[i].dead) this.population.splice[i];
