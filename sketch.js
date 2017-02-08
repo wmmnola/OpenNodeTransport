@@ -6,9 +6,11 @@ var grid = [];
 var selected = false;
 var selectedStation;
 var money;
+var ind;
 
 function setup() {
   frameRate(30);
+  ind = new Factory(0, 0);
   money = 1000;
   createCanvas(windowWidth, windowHeight);
 
@@ -22,8 +24,10 @@ function setup() {
 }
 
 function draw() {
+
   noStroke();
   background(255);
+  ind.show();
   textSize(32);
   fill(0, 0, 113);
   text("Money: " + money, 0, 32);
