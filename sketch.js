@@ -1,7 +1,9 @@
 var stations = [];
 var bigStations = [];
 var connections = [];
+var factories = [];
 var MAX_STATIONS = 20;
+var MAX_FACTORIES = 3;
 var grid = [];
 var selected = false;
 var selectedStation;
@@ -10,7 +12,7 @@ var ind;
 
 function setup() {
   frameRate(30);
-  ind = new Factory(0, 0);
+  ind = new Factory(100, 100);
   money = 1000;
   createCanvas(windowWidth, windowHeight);
 
@@ -20,6 +22,11 @@ function setup() {
     var station = new Station(x, y, i);
     stations.push(station)
   }
+  for (var i = 0; i < MAX_FACTORIES; i++) {
+    var factory = createFactory();
+    factories.push(factory);
+  }
+
   //c = new Connection(s1, s2);
 }
 
@@ -33,6 +40,9 @@ function draw() {
   text("Money: " + money, 0, 32);
   for (var i = 0; i < connections.length; i++) {
     connections[i].show();
+  }
+  for (var i = 0; i < factories.length; i++) {
+    factories[i].show();
   }
   for (var i = 0; i < stations.length; i++) {
     stations[i].show();
