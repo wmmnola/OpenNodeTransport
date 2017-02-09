@@ -2,7 +2,9 @@ var Station = function(x, y, id) {
   this.x = x;
   this.y = y;
   this.id = id;
+  this.type = "Station";
   this.connections = [];
+  this.goodsConsumed = [];
   this.color = color(0, 0, 0);
   this.selected = false;
   this.population = [];
@@ -21,7 +23,7 @@ var Station = function(x, y, id) {
     else if (this.growRate > 0) this.color = color(0, 153, 0);
     else if (this.growRate < 0) this.color = color(204, 0, 0);
     else this.color = color(0, 0, 0);
-    //text(this.id, this.x - 16, this.y - (this.r + 5));
+    text(this.id, this.x - 16, this.y - (this.r + 5));
     fill(this.color);
     ellipse(this.x, this.y, this.r, this.r);
 

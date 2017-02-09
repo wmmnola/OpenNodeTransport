@@ -15,21 +15,26 @@ var Commuter = function(start, end) {
         money += floor(20 / this.distanceTraveled);
         this.currentNode.populationCap += 1;
       } else if (this.currentNode.connections.length >= 1) {
-        var rand = round(random(this.currentNode.connections.length - 1));
-        var randConnection = this.currentNode.connections[rand];
-        this.distanceTraveled += 1;
-
-        //Sconsole.log(this.currentNode.connections);
-        //console.log(rand);
-        var index = this.currentNode.population.indexOf(this);
-        var oldNode = this.currentNode;
-        this.currentNode.population.splice(index);
-        if (randConnection.station1 != this.currentNode) {
-          this.currentNode = randConnection.station1;
-        } else {
-          this.currentNode = randConnection.station2;
+        var validStations = [];
+        for (var i = 0; i < this.currentNode.connections.length; i++) {
+          var con = this.currentNode.connections[i];
+          if (con.station1.type == "Station" && con.station1 != this.currentNode) {
+            validStations.push(con.station1);
+          }
+          if (con.station2.type == "Station" && con.station2 != this.currentNode) {
+            validStations.push(con.station2);
+          }
         }
-        this.currentNode.population.push(this);
+        if (validStations.length >= 1) {
+          var randIndex = round(random(validStations.length - 1));
+          var randConnection = validStations[randIndex];
+          var oldNode = this.currentNode;
+
+          this.currentNode = randConnection;
+          var index = oldNode.population.indexOf(this);
+          oldNode.population.splice(index, 1);
+          this.currentNode.population.push(this);
+        }
       }
     }
   }

@@ -34,7 +34,6 @@ function draw() {
 
   noStroke();
   background(255);
-  ind.show();
   textSize(32);
   fill(0, 0, 113);
   text("Money: " + money, 0, 32);
