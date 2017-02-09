@@ -5,10 +5,14 @@ var Factory = function(x, y) {
   this.size = 25;
   this.cenX = this.x + (this.size / 2);
   this.cenY = this.y + this.size / 2;
-  this.r = (2 * (this.size * this.size)) / 4
+  this.r = (2 * (this.size * this.size)) / 4;
+  this.selected = false;
+  this.color = color(0, 0, 255);
 
   this.show = function() {
-    fill(0, 0, 255);
+    if (this.selected) this.color = color(204, 204, 0);
+    else this.color = color(0, 0, 255);
+    fill(this.color);
     rect(this.x, this.y, this.size, this.size);
     fill(0);
   }

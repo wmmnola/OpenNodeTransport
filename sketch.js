@@ -88,8 +88,18 @@ function absorbStation(absorbed, absorbing) {
 
 function mousePressed() {
   console.log(selected);
+  for (var i = 0; i < factories.length; i++) {
+    var d = dist(mouseX, mouseY, factories[i].cenX, factories[i].cenY);
+    if (d <= factories[i].r) {
+      if (!selected) {
+        selected = true;
+        selectedStation = factories[i];
+        factories[i].selected = true;
+      }
+    }
+  }
   for (var i = 0; i < stations.length; i++) {
-    if (dist(mouseX, mouseY, stations[i].x, stations[i].y) <= stations[i].r) {
+    if (dist(mouseX, mouseY, stations[i].x, stations[i].y) <= stations[i].r / 2) {
       if (!selected) {
         selected = true;
         selectedStation = stations[i];
