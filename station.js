@@ -4,9 +4,11 @@ var Station = function(x, y, id) {
   this.id = id;
   this.type = "Station";
   this.connections = [];
-  this.goodsConsumed = [];
+  this.connectedFactories = [];
+  this.goods = [];
   this.color = color(0, 0, 0);
   this.selected = false;
+
   this.population = [];
   this.growRate = 0;
   this.deathRate = 0;
@@ -14,47 +16,33 @@ var Station = function(x, y, id) {
   this.reproductionThreshold = 0;
   this.populationCap = round(random(2, 10));
   this.r = this.populationCap * 5;
+
+
   var index = round(random(stations.length - 1))
   var person = new Commuter(this, stations[index]);
   this.population.push(person);
+
+  this.money = 0;
+
   this.show = function() {
+    this.id = stations.indexOf(this);
     this.r = this.population.length + 30;
     if (this.selected) this.color = color(204, 204, 0);
     else if (this.growRate > 0) this.color = color(0, 153, 0);
     else if (this.growRate < 0) this.color = color(204, 0, 0);
     else this.color = color(0, 0, 0);
-    text(this.id, this.x - 16, this.y - (this.r + 5));
+    text(this.id, this.x - 16, this.y - (this.r - 16));
     fill(this.color);
     ellipse(this.x, this.y, this.r, this.r);
 
   }
   this.update = function() {
-    for (var i = 0; i < connections.length; i++) {
-      for (var j = 0; j < connections.length; j++) {
-        if (connections[i] != connections[j]) {
-          if (connections[i].station1 == connections[j].station1 &&
-            connections[i].station2 == connections[j].station2) {
-            connections.splice(j, 1);
-            console.log("stationed purged");
-          } else if (connections[i].station1 == connections[j].station2 &&
-            connections[i].station2 == connections[j].station1) {
-            connections.splice(j, 1);
-            console.log("stationed purged");
-          }
-        }
-      }
-    }
+    this.money += .01 * this.population.length;
+
     this.reproductionThreshold = this.population.length * this.population.length +
       1;
-    if (this.population.length < this.populationCap) {
-      this.growRate += .1;
-
-    }
-    if (this.population.length > this.populationCap) {
-      //console.log(this.population.length + " population against " + this.populationCap);
-      this.growRate -= .1;
-    }
-
+    if (this.population.length < this.populationCap) this.growRate += .1;
+    if (this.population.length > this.populationCap) this.growRate -= .1;
     this.progressToPerson += floor(this.growRate);
 
     if (this.progressToPerson >= this.reproductionThreshold) {
@@ -69,9 +57,19 @@ var Station = function(x, y, id) {
       this.growRate += .5;
     }
     for (var i = 0; i < this.population.length; i++) {
-      //if (this.population[i].dead) this.population.splice[i];
       this.population[i].update();
     }
+    if (this.connections.length >= 1) {
+      for (var i = 0; i < this.connections[i].length; i++) {
+        if (this.connections[i].station1.type = "Factory") {
+          this.connectedFactories.push(this.connections[i].station1);
+        }
+        if (this.connections.station2[i].type = "Factory") {
+          this.connectedFactories.push(this.connections[i].station2);
+        }
+      }
+    }
+
   }
   this.turnRed = function() {
     fill(255, 0, 0);

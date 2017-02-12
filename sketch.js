@@ -42,6 +42,7 @@ function draw() {
   }
   for (var i = 0; i < factories.length; i++) {
     factories[i].show();
+    factories[i].update();
   }
   for (var i = 0; i < stations.length; i++) {
     stations[i].show();
@@ -62,7 +63,21 @@ function draw() {
       }
     }
   }
-
+  for (var i = 0; i < connections.length; i++) {
+    for (var j = 0; j < connections.length; j++) {
+      if (connections[i] != connections[j]) {
+        if (connections[i].station1 == connections[j].station1 &&
+          connections[i].station2 == connections[j].station2) {
+          connections.splice(j, 1);
+          console.log("stationed purged");
+        } else if (connections[i].station1 == connections[j].station2 &&
+          connections[i].station2 == connections[j].station1) {
+          connections.splice(j, 1);
+          console.log("stationed purged");
+        }
+      }
+    }
+  }
 }
 
 function absorbStation(absorbed, absorbing) {
