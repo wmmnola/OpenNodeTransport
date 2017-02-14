@@ -8,6 +8,7 @@ var Station = function(x, y, id) {
   this.goods = [];
   this.color = color(0, 0, 0);
   this.selected = false;
+  this.goodCap = 10;
 
   this.population = [];
   this.growRate = 0;
@@ -16,6 +17,10 @@ var Station = function(x, y, id) {
   this.reproductionThreshold = 0;
   this.populationCap = round(random(2, 10));
   this.r = this.populationCap * 5;
+  // nomber of goods required to bump the populationCap
+  this.goodsReq = 1;
+
+  this.starving = false;
 
 
   var index = round(random(stations.length - 1))
@@ -38,7 +43,6 @@ var Station = function(x, y, id) {
   }
   this.update = function() {
     this.money += .01 * this.population.length;
-
     this.reproductionThreshold = this.population.length * this.population.length +
       1;
     if (this.population.length < this.populationCap) this.growRate += .1;
@@ -56,25 +60,44 @@ var Station = function(x, y, id) {
       this.progressToPerson = 0;
       this.growRate += .5;
     }
-    for (var i = 0; i < this.population.length; i++) {
-      this.population[i].update();
+    if (this.money >= 100) {
+      this.money -= 100;
+      this.goodCap += 1
+
     }
-    if (this.connections.length >= 1) {
-      for (var i = 0; i < this.connections[i].length; i++) {
-        if (this.connections[i].station1.type = "Factory") {
-          this.connectedFactories.push(this.connections[i].station1);
-        }
-        if (this.connections.station2[i].type = "Factory") {
-          this.connectedFactories.push(this.connections[i].station2);
-        }
+    if (this.connectedFactories.length >= 1) {
+      if (this.goods.length < this.goodCap) this.buyGoods();
+      console.log(this.goodsReq + " against " + this.goods.length);
+      if (this.goods.length >= this.goodsReq) {
+        this.populationCap += 1;
+        this.goodsReq = Math.pow(this.goodsReq + 1, 2);
+        this.goods = [];
+        console.log(this.populationCap);
       }
     }
+
+    for (var i = 0; i < this.population.length; i++) {
+      this.population[i].update();
+      this.money += .01;
+    }
+
 
   }
   this.turnRed = function() {
     fill(255, 0, 0);
     ellipse(this.x, this.y, this.r, this.r);
 
+  }
+  this.buyGoods = function() {
+    var index = round(random(this.connectedFactories.length - 1));
+    var fac = this.connectedFactories[index];
+    if (fac.goods.length >= 1 && this.money >= 5) {
+      var good = fac.goods[0];
+      fac.goods.splice(0, 1);
+      this.goods.push(good);
+      fac.money += 5;
+      this.money -= 5;
+    }
   }
 }
 

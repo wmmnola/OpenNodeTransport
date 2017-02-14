@@ -13,7 +13,7 @@ var Commuter = function(start, end) {
       if (this.currentNode == this.endNode) {
         this.dead = true;
         money += floor(20 / this.distanceTraveled);
-        this.currentNode.populationCap += 1;
+        //this.currentNode.populationCap += 1;
       } else if (this.currentNode.connections.length >= 1) {
         var validStations = [];
         for (var i = 0; i < this.currentNode.connections.length; i++) {

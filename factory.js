@@ -5,12 +5,15 @@ var Factory = function(x, y) {
   this.y = y;
   this.connections = [];
   this.goods = [];
+  this.money = 0;
+  this.connectedNodes = [];
   // Production variables.
   this.productionCap = 5;
   this.production = 1;
   this.progressToGood = 0;
   this.productionRate = 1;
   this.productionThreshold = 100;
+  this.goodPrice = 5;
   // The following is to do with display. CenX and CenY are the center of the
   // square. These coordinates are used for pretty much everything except for
   // drawing the square.
@@ -33,6 +36,10 @@ var Factory = function(x, y) {
     fill(0);
   }
   this.update = function() {
+    if (this.money >= 50) {
+      this.money = 0;
+      this.productionRate += 1;
+    }
     if (this.progressToGood >= this.productionThreshold &&
       this.goods.length < this.productionCap) {
       var g = new Good(this);
@@ -40,6 +47,12 @@ var Factory = function(x, y) {
       this.progressToGood = 0;
     } else {
       this.progressToGood += this.productionRate;
+    }
+    for (var i = 0; i < this.connections.length; i++) {
+      if (this.connectedNodes.indexOf(this.connections[i].station2) == -1) {
+        this.connectedNodes.push(connections[i].station2)
+        connections[i].station2.connectedFactories.push(this);
+      }
     }
   }
 }
