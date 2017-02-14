@@ -49,9 +49,10 @@ var Factory = function(x, y) {
       this.progressToGood += this.productionRate;
     }
     for (var i = 0; i < this.connections.length; i++) {
-      if (this.connectedNodes.indexOf(this.connections[i].station2) == -1) {
+      if (this.connectedNodes.indexOf(this.connections[i].station2) <= -1) {
         this.connectedNodes.push(connections[i].station2)
         connections[i].station2.connectedFactories.push(this);
+        console.log(connections[i].station2.connectedFactories);
       }
     }
   }

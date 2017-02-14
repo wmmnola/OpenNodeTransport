@@ -4,6 +4,8 @@ var Station = function(x, y, id) {
   this.id = id;
   this.type = "Station";
   this.connections = [];
+  this.stations = [];
+  this.connectedStations = [];
   this.connectedFactories = [];
   this.goods = [];
   this.color = color(0, 0, 0);
@@ -42,6 +44,7 @@ var Station = function(x, y, id) {
 
   }
   this.update = function() {
+    this.findConnectedStations();
     this.money += .01 * this.population.length;
     this.reproductionThreshold = this.population.length * this.population.length +
       1;
@@ -74,6 +77,10 @@ var Station = function(x, y, id) {
         this.goods = [];
         console.log(this.populationCap);
       }
+    } else {
+      if (this.connectedStations.length >= 1) {
+
+      }
     }
 
     for (var i = 0; i < this.population.length; i++) {
@@ -86,6 +93,25 @@ var Station = function(x, y, id) {
   this.turnRed = function() {
     fill(255, 0, 0);
     ellipse(this.x, this.y, this.r, this.r);
+
+  }
+  this.findConnectedStations = function() {
+    if (this.connections.length >= 1) {
+      for (var i = 0; i < this.connections.length; i++) {
+        var con = this.connections[i];
+        var station;
+        if (con.station1.type == "Station" && con.station1 != this) {
+          station = con.station1;
+        } else if (con.station2.type == "Station" && con.station2 != this) {
+          station = con.station2;
+        }
+        if (this.connectedStations.indexOf(station) == -1) {
+          this.connectedStations.push(station);
+        }
+      }
+    }
+  }
+  this.buySecondGoods = function() {
 
   }
   this.buyGoods = function() {
